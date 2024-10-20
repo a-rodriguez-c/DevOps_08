@@ -1,6 +1,6 @@
-from src.commands.base_command import BaseCommand
-from src.database import db_session
-from src.models.model import Blacklist
+from commands.base_command import BaseCommand
+from database import db_session
+from models.model import Blacklist
 
 class ResetDatabase(BaseCommand):
     def execute(self):

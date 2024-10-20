@@ -25,7 +25,7 @@ session_factory = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 db_session = scoped_session(session_factory)
 
 def init_db():
-    from .models.model import Blacklist, Base # Adjusted import statement
+    from models.model import Blacklist, Base # Adjusted import statement
     print("Initializing database")
-    Base.metadata.create_all(bind=engine)
+    # Base.metadata.create_all(bind=engine)
     print("Database initialized")

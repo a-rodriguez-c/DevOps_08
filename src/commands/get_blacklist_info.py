@@ -1,9 +1,9 @@
 from marshmallow import ValidationError
-from src.commands.base_command import BaseCommand
-from src.models.model import Blacklist
-from src.errors.errors import InvalidParams
-from src.database import db_session
-from src.models.schemas import GetBlacklistInfoInputSchema, GetBlacklistInfoOutputSchema
+from commands.base_command import BaseCommand
+from models.model import Blacklist
+from errors.errors import InvalidParams
+from database import db_session
+from models.schemas import GetBlacklistInfoInputSchema, GetBlacklistInfoOutputSchema
 
 class GetBlacklistInfo(BaseCommand):
     def __init__(self, email):

@@ -1,8 +1,8 @@
-from src.commands.base_command import BaseCommand
-from src.models.model import Blacklist
-from src.errors.errors import InvalidParams, EmailAlreadyBlacklisted
-from src.database import db_session
-from src.models.schemas import CreateBlacklistInputSchema
+from commands.base_command import BaseCommand
+from models.model import Blacklist
+from errors.errors import InvalidParams, EmailAlreadyBlacklisted
+from database import db_session
+from models.schemas import CreateBlacklistInputSchema
 from flask import request
 
 class CreateBlacklist(BaseCommand):

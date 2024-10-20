@@ -190,3 +190,7 @@ credentials.json
 docker-compose-local-rf006-007.yml
 
 .vscode/
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml

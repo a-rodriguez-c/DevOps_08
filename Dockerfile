@@ -1,23 +1,26 @@
-FROM python:3.8-slim
+FROM python:3.9
 
-# Establecer el directorio de trabajo
 WORKDIR /src
 
-# Copiar los archivos Pipfile y Pipfile.lock al directorio de trabajo actual
-COPY Pipfile /src/
+COPY ./requirements.txt /src/requirements.txt
 
-# Copiar el código fuente al directorio de trabajo
-COPY src /src/
+RUN pip install --no-cache-dir --upgrade -r /src/requirements.txt
 
-# Instalar las dependencias
-RUN pip install --upgrade pip
-RUN pip install pipenv
+COPY ./src /src
 
-# Instala las dependencias del proyecto
-RUN pipenv install
+# Establece las variables de entorno
+ENV VERSION=1.0 \
+    FLASK_APP=src/main.py \
+    FLASK_DEBUG=1 \
+    FLASK_ENV=test \
+    DB_USER=postgres \
+    DB_PASSWORD=postgres \
+    DB_HOST=localhost \
+    DB_PORT=5432 \
+    DB_NAME=blacklist \
+    SECRET_TOKEN=token-super-secreto
 
-# Exponer el puerto
-EXPOSE 3000
+EXPOSE 8000
 
-# Define el comando por defecto para ejecutar el microservicio, con espera de 10 segundos
-CMD ["sh", "-c", "sleep 10 && pipenv run flask --app main.py run -h 0.0.0.0 -p 3000"]
+# CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+ENTRYPOINT ["python", "/src/main.py"]

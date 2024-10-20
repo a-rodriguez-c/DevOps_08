@@ -1,9 +1,9 @@
 from flask import Blueprint, request, jsonify
-from src.commands.reset_database import ResetDatabase
-from src.commands.create_blacklist import CreateBlacklist
-from src.commands.get_blacklist_info import GetBlacklistInfo
-from src.errors.errors import EmailAlreadyBlacklisted, InvalidParams, EmailNotFound
-from src.decorators.auth import token_required 
+from commands.reset_database import ResetDatabase
+from commands.create_blacklist import CreateBlacklist
+from commands.get_blacklist_info import GetBlacklistInfo
+from errors.errors import EmailAlreadyBlacklisted, InvalidParams, EmailNotFound
+from decorators.auth import token_required
 
 _blueprint = Blueprint('blacklist', __name__)
 
