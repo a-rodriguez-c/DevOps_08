@@ -7,12 +7,12 @@ services:
       context: blacklist
       dockerfile: Dockerfile
     ports:
-      - "2000:2000"
+      - "3000:3000"
     environment:
       - FLASK_APP=main
       - FLASK_DEBUG=1
       - FLASK_ENV=production
-      - DB_HOST=users_db
+      - DB_HOST=blacklist_db
       - DB_PORT=5432
       - DB_USER=postgres
       - DB_PASSWORD=postgres
