@@ -3,11 +3,32 @@ from src.database import init_db
 from src.blueprints.blacklist import _blueprint
 from src.errors.errors import ApiError
 from src.utils.environment_config import load_environment_variables
+from flasgger import Swagger
 
 load_environment_variables()
 
 def setup_app():
     app = Flask(__name__)
+    swagger_template = {
+        "swagger": "2.0",
+        "info": {
+            "title": "API de Lista Negra",
+            "description": "Este microservicio permite a las aplicaciones clientes agregar, consultar y eliminar direcciones de correo electrónico de la lista negra, asegurando que las direcciones bloqueadas no puedan interactuar con el sistema.",
+            "version": "0.1.0",
+            "license": {
+                "name": "MIT",
+                "url": "http://opensource.org/licenses/MIT"
+            }
+        },
+        "basePath": "/",  # Base path para todas las rutas
+        "schemes": [
+            "http",
+            "https"
+        ],
+        "operationId": "getmyData"
+    }
+
+    Swagger(app,template=swagger_template)  # Inicializar Flasgger
     app.register_blueprint(_blueprint)
 
     @app.errorhandler(ApiError)
@@ -23,4 +44,4 @@ app = setup_app()
 init_db()
 
 if __name__ == "__main__":
-    app.run(port=8000, host="0.0.0.0")
+    app.run(host="0.0.0.0")
