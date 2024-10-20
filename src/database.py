@@ -7,7 +7,7 @@ from sqlalchemy.orm import sessionmaker, scoped_session
 current_dir = os.path.dirname(os.path.abspath(__file__))
 print("current_dir ",current_dir)
 # Retrocede una carpeta
-parent_dir = os.path.abspath(os.path.join(current_dir, '..'))
+parent_dir = os.path.abspath(os.path.join(current_dir, '../blacklist'))
 print("parent_dir ",parent_dir)
 
 DB_USER = os.getenv("DB_USER")
