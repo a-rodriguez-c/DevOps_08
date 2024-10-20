@@ -18,5 +18,6 @@ sqlalchemy = "*"
 python-jose = "*"
 requests = "*"
 importlib-metadata = "*"
+exceptiongroup = "*"
 
 [dev-packages]
