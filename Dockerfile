@@ -7,7 +7,7 @@ WORKDIR /src
 COPY Pipfile /src/
 
 # Copiar el código fuente al directorio de trabajo
-COPY src/ /src/
+COPY src /src/
 
 # Instalar las dependencias
 RUN pip install --upgrade pip

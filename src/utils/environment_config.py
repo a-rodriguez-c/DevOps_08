@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 def load_environment_variables():
     """Cargar las variables de entorno basadas en el entorno configurado"""
     current_dir = os.path.dirname(os.path.abspath(__file__))
-    parent_dir = os.path.abspath(os.path.join(current_dir, "../.."))
+    parent_dir = os.path.abspath(os.path.join(current_dir, "../../blacklist"))
 
     env_name = os.getenv(
         "FLASK_ENV", "development"
