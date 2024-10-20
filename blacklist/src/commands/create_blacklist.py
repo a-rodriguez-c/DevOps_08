@@ -1,5 +1,3 @@
-import base64
-import os
 from src.commands.base_command import BaseCommand
 from src.models.model import Blacklist
 from src.errors.errors import InvalidParams, EmailAlreadyBlacklisted

@@ -1,4 +1,3 @@
-# /commands/reset_database.py
 from src.commands.base_command import BaseCommand
 from src.database import db_session
 from src.models.model import Blacklist

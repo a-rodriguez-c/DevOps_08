@@ -26,6 +26,6 @@ db_session = scoped_session(session_factory)
 
 def init_db():
     from .models.model import Blacklist, Base # Adjusted import statement
-    print("init_db")
+    print("Initializing database")
     Base.metadata.create_all(bind=engine)
     print("Database initialized")

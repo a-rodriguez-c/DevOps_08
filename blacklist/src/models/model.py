@@ -1,14 +1,12 @@
-from sqlalchemy import Column, String, DateTime, Enum
+from sqlalchemy import Column, String, DateTime
 from sqlalchemy.orm import declarative_base
 from sqlalchemy.dialects.postgresql import UUID
 import uuid
 from datetime import datetime
-from enum import Enum as PyEnum
-from src.models.base_model import Model
 
 Base = declarative_base()
 
-class Blacklist(Model, Base):
+class Blacklist(Base):
     __tablename__ = 'blacklist'
     
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4, unique=True, nullable=False)
@@ -19,7 +17,6 @@ class Blacklist(Model, Base):
     created_at = Column(DateTime, default=datetime.utcnow)
 
     def __init__(self, email, app_uuid, ip_address, blocked_reason=None):
-        Model.__init__(self)
         self.email = email
         self.app_uuid = app_uuid
         self.ip_address = ip_address
