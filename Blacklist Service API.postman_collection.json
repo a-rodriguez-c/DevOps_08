@@ -1,0 +1,98 @@
+{
+	"info": {
+		"_postman_id": "22c44245-3c0c-417f-87ad-bf0f6fc73f13",
+		"name": "Blacklist Service API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13659509"
+	},
+	"item": [
+		{
+			"name": "Add Email to Blacklist",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "token-super-secreto",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{auth_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"testemail@example.com\",\r\n    \"app_uuid\": \"123e4567-e89b-12d3-a456-426614174000\",\r\n    \"blocked_reason\": \"Suspicious activity\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/blacklists",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"blacklists"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ping",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/blacklists/ping",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"blacklists",
+						"ping"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Is Email on Blacklist",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "token-super-secreto",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/blacklists/testemail@example.com",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"blacklists",
+						"testemail@example.com"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
