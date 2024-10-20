@@ -8,42 +8,40 @@ La estructura de archivos del microservicio es la siguiente:
 
 ```
 DEVOPS_08/
-├── blacklist/                         
-│   ├── src/                      # Código fuente del microservicio
-│   │   ├── blueprints/           # Contiene los blueprints de la aplicación Flask
-│   │   │   ├── __init__.py
-│   │   │   └── blacklist.py
-│   │   ├── commands/             # Lógica de negocio organizada por comandos
-│   │   │   ├── __init__.py
-│   │   │   ├── base_command.py # Clase base para los comandos
-│   │   │   ├── create_blacklist.py
-│   │   │   ├── get_blacklist_info.py
-│   │   │   └── reset_database.py
-│   │   ├── errors/               # Manejo de errores personalizados
-│   │   │   ├── __init__.py
-│   │   │   └── errors.py
-│   │   ├── models/               # Modelos y esquemas de datos de usuario
-│   │   │   ├── __init__.py
-│   │   │   ├── model.py        # Definición de la tabla de blacklist
-│   │   │   └── schemas.py     # Esquemas de serialización
-│   │   ├── database.py           # configuración de la base de datos
-│   │   └── main.py               # Punto de entrada de la aplicación
-│   ├── tests/                    # Pruebas unitarias para el microservicio
-│   │   ├── blueprints/           # Pruebas para los blueprints
-│   │   │   └── ...
-│   │   ├── commands/             # Pruebas para los comandos
-│   │   │   └── ...
-│   │   └── conftest.py           # Archivo de configuración para pytest
-│   ├── Dockerfile                # Definición de la imagen Docker
-│   ├── Pipfile                   # Dependencias del proyecto
-│   ├── Pipfile.lock              # Versiones bloqueadas de dependencias
-│   └── README.md                 # Documentación del microservicio
-├── config.yaml                   # Archivo de configuraciones de despliegue de ejecución de microservicios
-├── docker-compose.yml            # Archivo de despliegue usando Docker Compose
-└── README.md                     # Documentación general del proyecto
+├── src/                        # Código fuente del microservicio
+│   ├── blueprints/             # Contiene los blueprints de la aplicación Flask
+│   │   ├── __init__.py
+│   │   └── blacklist.py
+│   ├── commands/               # Lógica de negocio organizada por comandos
+│   │   ├── __init__.py
+│   │   ├── base_command.py     # Clase base para los comandos
+│   │   ├── create_blacklist.py
+│   │   ├── get_blacklist_info.py
+│   │   └── reset_database.py
+│   ├── errors/               # Manejo de errores personalizados
+│   │   ├── __init__.py
+│   │   └── errors.py
+│   ├── models/               # Modelos y esquemas de datos de usuario
+│   │   ├── __init__.py
+│   │   ├── model.py          # Definición de la tabla de blacklist
+│   │   └── schemas.py        # Esquemas de serialización
+│   ├── database.py           # configuración de la base de datos
+│   └── main.py               # Punto de entrada de la aplicación
+├── tests/                    # Pruebas unitarias para el microservicio
+│   ├── blueprints/           # Pruebas para los blueprints
+│   │   └── ...
+│   ├── commands/             # Pruebas para los comandos
+│   │   └── ...
+│   └── conftest.py           # Archivo de configuración para pytest
+├── Dockerfile                # Definición de la imagen Docker
+├── Pipfile                   # Dependencias del proyecto
+├── Pipfile.lock              # Versiones bloqueadas de dependencias
+├── docker-compose.yml        # Archivo de despliegue usando Docker Compose
+└── README.md                 # Documentación del microservicio
+
 ```
 
-## Ejecución
+## Ejecución con compose
 
 Para ejecutar el microservicio, sigue los pasos a continuación. Estos comandos te permitirán construir y ejecutar el contenedor Docker del microservicio en tu máquina local.
 
@@ -57,7 +55,6 @@ docker-compose up -d
 ```
 
 5. Carga el archivo `Blacklist Service API.postman_collection.json` en Postman para probar los endpoints del microservicio.
-
 
 
 ## Otras Características (opcional)

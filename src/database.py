@@ -1,14 +1,6 @@
-# src/database.py
 import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
-
-# Obtén la ruta actual del script en ejecución
-current_dir = os.path.dirname(os.path.abspath(__file__))
-print("current_dir ",current_dir)
-# Retrocede una carpeta
-parent_dir = os.path.abspath(os.path.join(current_dir, '../blacklist'))
-print("parent_dir ",parent_dir)
 
 DB_USER = os.getenv("DB_USER")
 DB_PASSWORD = os.getenv("DB_PASSWORD")
@@ -25,7 +17,7 @@ session_factory = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 db_session = scoped_session(session_factory)
 
 def init_db():
-    from models.model import Blacklist, Base # Adjusted import statement
+    from src.models.model import Blacklist, Base # Adjusted import statement
     print("Initializing database")
-    # Base.metadata.create_all(bind=engine)
+    Base.metadata.create_all(bind=engine)
     print("Database initialized")

@@ -1,8 +1,8 @@
 from flask import Flask, jsonify
-from database import init_db
-from blueprints.blacklist import _blueprint
-from errors.errors import ApiError
-from utils.environment_config import load_environment_variables
+from src.database import init_db
+from src.blueprints.blacklist import _blueprint
+from src.errors.errors import ApiError
+from src.utils.environment_config import load_environment_variables
 
 load_environment_variables()
 

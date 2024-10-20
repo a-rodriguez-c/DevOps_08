@@ -1,4 +1,4 @@
-FROM python:3.9
+FROM python:3.9-slim
 
 WORKDIR /src
 
@@ -8,19 +8,12 @@ RUN pip install --no-cache-dir --upgrade -r /src/requirements.txt
 
 COPY ./src /src
 
-# Establece las variables de entorno
-ENV VERSION=1.0 \
-    FLASK_APP=src/main.py \
-    FLASK_DEBUG=1 \
-    FLASK_ENV=test \
-    DB_USER=postgres \
-    DB_PASSWORD=postgres \
-    DB_HOST=localhost \
-    DB_PORT=5432 \
-    DB_NAME=blacklist \
-    SECRET_TOKEN=token-super-secreto
+EXPOSE 3000
 
-EXPOSE 8000
+CMD ["flask", "run", "--host=0.0.0.0", "--port=3000", "--no-debugger"]
 
-# CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
-ENTRYPOINT ["python", "/src/main.py"]
+# Comandos para executar el proyecto
+# docker pull postgres
+# docker run --name my-postgres-container --network my_network -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=2024 -e POSTGRES_DB=blacklist_db -p 5432:5432 -d postgres
+# docker build -t my-flask-app . --no-cache
+# docker run --name my-flask-container --network my_network -p 3000:3000 my-flask-app

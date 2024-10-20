@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "96ff2b32-8b15-429c-88c5-7f4a54c0a920",
+		"_postman_id": "1b50b827-ff23-4f9f-960f-916fc5799cc1",
 		"name": "Blacklist Service API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "30444108"
@@ -333,7 +333,7 @@
 	"variable": [
 		{
 			"key": "base_url",
-			"value": "",
+			"value": "http://localhost:3000",
 			"type": "default"
 		},
 		{
