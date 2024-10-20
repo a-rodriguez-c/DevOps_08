@@ -1,0 +1,5 @@
+# Ignorar archivos y directorios específicos
+node_modules
+*.log
+*.tmp
+*.db
