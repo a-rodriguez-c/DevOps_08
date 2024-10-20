@@ -2,9 +2,9 @@ version: '3.9'
 
 services:
 
-  user:
+  blacklist:
     build:
-      context: user
+      context: blacklist
       dockerfile: Dockerfile
     ports:
       - "2000:2000"
@@ -16,19 +16,19 @@ services:
       - DB_PORT=5432
       - DB_USER=postgres
       - DB_PASSWORD=postgres
-      - DB_NAME=users_db
+      - DB_NAME=blacklist_db
       - SECRET_TOKEN=token-super-secreto
       - VERSION=1.0
     depends_on:
-      - users_db
+      - blacklist_db
     networks:
       - user_net
       - app_net
     
-  users_db:
+  blacklist_db:
     image: postgres
     environment:
-      POSTGRES_DB: users_db
+      POSTGRES_DB: blacklist_db
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     healthcheck:

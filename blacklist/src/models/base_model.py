@@ -1,4 +1,3 @@
-# user/src/models/base_model.py
 from datetime import datetime
 from sqlalchemy import Column, DateTime
 import uuid

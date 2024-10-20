@@ -188,3 +188,5 @@ secrets.yml
 credenciales-gcp.json
 credentials.json
 docker-compose-local-rf006-007.yml
+
+.vscode*/

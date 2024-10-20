@@ -15,9 +15,9 @@ def token_required(f):
             if auth_header.startswith('Bearer '):
                 token = auth_header.split(" ")[1]
 
-        DB_BEARER_TOKEN = os.getenv("DB_BEARER_TOKEN")
+        SECRET_TOKEN = os.getenv("SECRET_TOKEN")
         # Check if token matches the static token
-        if not token or token != DB_BEARER_TOKEN:
+        if not token or token != SECRET_TOKEN:
             return jsonify({'message': 'Token is missing or invalid!'}), 401
 
         return f(*args, **kwargs)

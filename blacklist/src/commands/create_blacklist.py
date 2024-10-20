@@ -4,7 +4,7 @@ from src.commands.base_command import BaseCommand
 from src.models.model import Blacklist
 from src.errors.errors import InvalidParams, EmailAlreadyBlacklisted
 from src.database import db_session
-from src.models.schemas import CreateBlacklistInputSchema, ResponseJsonBlacklistSchema
+from src.models.schemas import CreateBlacklistInputSchema
 from flask import request
 
 class CreateBlacklist(BaseCommand):

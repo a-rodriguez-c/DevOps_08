@@ -1,6 +1,5 @@
 from flask import Flask, jsonify
 from src.database import init_db
-from src.blueprints.user import user_blueprint
 from src.blueprints.blacklist import blacklist_blueprint  # Import the blacklist blueprint
 from src.errors.errors import ApiError
 from src.utils.environment_config import load_environment_variables
@@ -9,7 +8,6 @@ load_environment_variables()
 
 def setup_app():
     app = Flask(__name__)
-    app.register_blueprint(user_blueprint)  # Register the user blueprint
     app.register_blueprint(blacklist_blueprint)  # Register the blacklist blueprint
 
     @app.errorhandler(ApiError)

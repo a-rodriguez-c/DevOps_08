@@ -22,7 +22,7 @@ def create_blacklist_entry():
         ).execute()
         return jsonify(create_blacklist_command), 201
     except InvalidParams as e:
-        return e.description, e.code
+        return str(e), e.code
     except Exception as e:
         return str(e), 400
 

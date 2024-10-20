@@ -1,5 +1,4 @@
 # Ignorar archivos y directorios específicos
-user/.env.development
 node_modules
 *.log
 *.tmp
