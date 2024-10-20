@@ -1,20 +1,66 @@
 {
 	"info": {
-		"_postman_id": "22c44245-3c0c-417f-87ad-bf0f6fc73f13",
+		"_postman_id": "96ff2b32-8b15-429c-88c5-7f4a54c0a920",
 		"name": "Blacklist Service API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "13659509"
+		"_exporter_id": "30444108"
 	},
 	"item": [
 		{
-			"name": "Add Email to Blacklist",
+			"name": "Health check",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/blacklists/ping",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"blacklists",
+						"ping"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Reset database",
 			"request": {
 				"auth": {
 					"type": "bearer",
 					"bearer": [
 						{
 							"key": "token",
-							"value": "token-super-secreto",
+							"value": "{{token_valid}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/blacklists/reset",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"blacklists",
+						"reset"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get token is missing or invalid",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token_invalid}}",
 							"type": "string"
 						}
 					]
@@ -49,32 +95,98 @@
 			"response": []
 		},
 		{
-			"name": "Ping",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{base_url}}/blacklists/ping",
-					"host": [
-						"{{base_url}}"
-					],
-					"path": [
-						"blacklists",
-						"ping"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Is Email on Blacklist",
+			"name": "Add email to Blacklist",
 			"request": {
 				"auth": {
 					"type": "bearer",
 					"bearer": [
 						{
 							"key": "token",
-							"value": "token-super-secreto",
+							"value": "{{token_valid}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{auth_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"{{email_valid}}\",\r\n    \"app_uuid\": \"123e4567-e89b-12d3-a456-426614174000\",\r\n    \"blocked_reason\": \"Suspicious activity\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/blacklists",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"blacklists"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add email duplicate to Blacklist",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token_valid}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{auth_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"{{email_valid}}\",\r\n    \"app_uuid\": \"123e4567-e89b-12d3-a456-426614174000\",\r\n    \"blocked_reason\": \"Suspicious activity\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/blacklists",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"blacklists"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get email in blacklist",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token_valid}}",
 							"type": "string"
 						}
 					]
@@ -82,17 +194,167 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{base_url}}/blacklists/testemail@example.com",
+					"raw": "{{base_url}}/blacklists/{{email_valid}}",
 					"host": [
 						"{{base_url}}"
 					],
 					"path": [
 						"blacklists",
-						"testemail@example.com"
+						"{{email_valid}}"
 					]
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Get email not found",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token_valid}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/blacklists/{{email_not_found}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"blacklists",
+						"{{email_not_found}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get email invalid",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token_valid}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/blacklists/{{email_invalid}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"blacklists",
+						"{{email_invalid}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add email invalid to Blacklist",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token_valid}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{auth_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"{{email_invalid}}\",\r\n    \"app_uuid\": \"123e4567-e89b-12d3-a456-426614174000\",\r\n    \"blocked_reason\": \"Suspicious activity\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/blacklists",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"blacklists"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "inherit"
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "email_valid",
+			"value": "testemail@example.com"
+		},
+		{
+			"key": "email_not_found",
+			"value": "noexist@example.com"
+		},
+		{
+			"key": "email_invalid",
+			"value": "example.com"
+		},
+		{
+			"key": "token_invalid",
+			"value": "error"
+		},
+		{
+			"key": "token_valid",
+			"value": "token-super-secreto"
 		}
 	]
 }
