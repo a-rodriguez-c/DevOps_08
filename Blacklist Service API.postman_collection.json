@@ -1,9 +1,11 @@
 {
 	"info": {
-		"_postman_id": "1b50b827-ff23-4f9f-960f-916fc5799cc1",
+		"_postman_id": "9150296e-a710-4434-81a8-bba0caa680ce",
 		"name": "Blacklist Service API",
+		"description": "### **Blacklist Service API - Documentación**\n\n**Descripción General**:  \n**Blacklist Service API** es un microservicio que permite gestionar una lista negra global de correos electrónicos. Este servicio facilita a los sistemas internos la consulta sobre si un email está en la lista negra y la capacidad de agregar nuevos emails. Además, maneja adecuadamente los errores relacionados con la autenticación y el formato de los correos electrónicos. La API está diseñada bajo un modelo RESTful, exponiendo múltiples endpoints para su integración con otros sistemas.\n\n### **Arquitectura**:\n\nEste microservicio sigue los principios de **microservicios** modernos, proporcionando un API centralizado y autónomo. La **autenticación** se realiza mediante Bearer Tokens, lo que asegura que solo los sistemas autorizados pueden acceder y modificar la lista negra. La información se persiste en una base de datos relacional, recomendándose el uso de **AWS RDS** para una gestión escalable y segura.\n\n### **Autenticación**:\n\nExceptuando el endpoint de Health Check, todas las solicitudes requieren un **Bearer Token**. Para las pruebas, se utilizan los siguientes tokens:\n\n- Token válido: `token-super-secreto`\n    \n- Token inválido: `error`\n    \n\nEl token debe ser incluido en el encabezado `Authorization` de las solicitudes, por ejemplo:\n\n```\nAuthorization: Bearer token-super-secreto\n\n ```\n\n**Endpoints Documentados**:",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "30444108"
+		"_exporter_id": "30444108",
+		"_collection_link": "https://www.postman.com/material-geoscientist-13340023/workspace/devops-08/collection/30444108-9150296e-a710-4434-81a8-bba0caa680ce?action=share&source=collection_link&creator=30444108"
 	},
 	"item": [
 		{
@@ -20,7 +22,8 @@
 						"blacklists",
 						"ping"
 					]
-				}
+				},
+				"description": "#### **Health Check (GET)**\n\n- **Descripción**: Verifica si el servicio de listas negras está operativo.\n    \n- **Endpoint**: `{{base_url}}/blacklists/ping`\n    \n- **Método**: GET\n    \n- **Autenticación**: No requerida.\n    \n- **Parámetros**: Ninguno.\n    \n- **Respuesta esperada**:\n    \n    - **200 OK**: El servicio está en funcionamiento\n        \n\n**Ejemplo de Respuesta**:\n\n``` html\npong\n\n ```"
 			},
 			"response": []
 		},
@@ -48,7 +51,8 @@
 						"blacklists",
 						"reset"
 					]
-				}
+				},
+				"description": "#### **Reset Database (POST)**\n\nEste endpoint permite restablecer la base de datos de la lista negra a su estado inicial. Es una operación crítica y debería usarse con cuidado, ya que eliminará todos los registros actuales de la lista negra, dejando la base de datos vacía. Solo los usuarios autorizados deberían poder ejecutar esta operación.\n\n- **Endpoint**: `{{base_url}}/blacklists/reset`\n    \n- **Método**: POST\n    \n- **Autenticación**: Requiere **Bearer Token**.\n    \n- **Parámetros**: Ninguno.\n    \n- **Respuesta esperada**:\n    \n    - **200 OK**: Base de datos restablecida\n        \n\n``` json\n{\n    \"msg\": \"Todos los datos fueron eliminados\"\n}\n\n ```\n\n- **Respuesta error**:\n    \n    - **401:** Token is missin or invalid\n        \n\n``` json\n{\n    \"msg\": \"Token is missin or invalid\"\n}\n\n ```"
 			},
 			"response": []
 		},
@@ -90,7 +94,8 @@
 					"path": [
 						"blacklists"
 					]
-				}
+				},
+				"description": "Este es un escenario del endpoint Blacklists, permite agregar un email a la lista negra global. Validando si el sistema maneja las solicitudes donde el token de autenticación es inválido o está ausente.\n\n**URL**:  \n`http://localhost:3000/blacklists`\n\n**Método**:  \nPOST\n\n**Autenticación**:  \nEl token de autenticación utilizado en esta solicitud es **inválido**. Asegúrate de incluir un token incorrecto en el encabezado para simular este escenario.\n\n**Encabezados**:\n\n- **Authorization**: Bearer `{{token_invalid}}`\n    \n\n**Cuerpo de la Solicitud** (en formato JSON):\n\n``` json\n{\n  \"email\": \"testemail@example.com\",\n  \"app_uuid\": \"123e4567-e89b-12d3-a456-426614174000\",\n  \"blocked_reason\": \"Suspicious activity\"\n}\n\n ```\n\n**Respuesta Esperada**:\n\n- **Código de Estado 401 Unauthorized**: Indica que el token proporcionado es inválido o está ausente.\n    \n\n**Ejemplo de Respuesta de Error**:\n\n``` json\n{\n    \"message\": \"Token is missing or invalid!\"\n}\n \n\n ```"
 			},
 			"response": []
 		},
@@ -132,7 +137,8 @@
 					"path": [
 						"blacklists"
 					]
-				}
+				},
+				"description": "#### **Agregar Email a la Lista Negra (POST)**\n\n- **Descripción**: Crea una nueva entrada en la lista negra proporcionando un correo electronico y otros detalles.\n    \n- **Endpoint**: `{{base_url}}/blacklists`\n    \n- **Método**: POST\n    \n- **Autenticación**: Requiere **Bearer Token**.\n    \n- **Parámetros**:\n    \n    - `email` (String): Email del cliente a agregar.\n        \n    - `app_uuid` (String): UUID de la aplicación que realiza la solicitud.\n        \n    - `blocked_reason` (String): Motivo por el cual el email es agregado (opcional, máx. 255 caracteres).\n        \n- **Respuesta esperada**:\n    \n    - **201 Created**: Email añadido exitosamente.\n        \n    - **409 Conflict**: El email ya está en la lista negra.\n        \n    - **400 Bad Request**: Formato inválido del email o parámetros faltantes.\n        \n\n**Ejemplo de Cuerpo de Solicitud**:\n\n``` json\n{\n  \"email\": \"testemail@example.com\",\n  \"app_uuid\": \"123e4567-e89b-12d3-a456-426614174000\",\n  \"blocked_reason\": \"Suspicious activity\"\n}\n\n ```\n\n**Ejemplo de Respuesta Exitosa**:\n\n``` json\n{\n    \"message\": \"Blacklist entry successfully registered.\"\n}\n\n ```"
 			},
 			"response": []
 		},
@@ -174,91 +180,8 @@
 					"path": [
 						"blacklists"
 					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get email in blacklist",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{token_valid}}",
-							"type": "string"
-						}
-					]
 				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{base_url}}/blacklists/{{email_valid}}",
-					"host": [
-						"{{base_url}}"
-					],
-					"path": [
-						"blacklists",
-						"{{email_valid}}"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get email not found",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{token_valid}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{base_url}}/blacklists/{{email_not_found}}",
-					"host": [
-						"{{base_url}}"
-					],
-					"path": [
-						"blacklists",
-						"{{email_not_found}}"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get email invalid",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{token_valid}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{base_url}}/blacklists/{{email_invalid}}",
-					"host": [
-						"{{base_url}}"
-					],
-					"path": [
-						"blacklists",
-						"{{email_invalid}}"
-					]
-				}
+				"description": "**Descripción**:  \nEs un escenario del endpoint de blacklists, el cual permite agregar un email a la lista negra global. Este escenario valdia, la solicitud intenta agregar un correo electrónico que ya ha sido previamente añadido. Cuando un correo ya existente en la lista negra es enviado, se debería recibir un error que indique que el correo ya está en la lista negra.\n\n**URL**:  \n`http://localhost:3000/blacklists`\n\n**Método**:  \nPOST\n\n**Autenticación**:  \nSe requiere autenticación mediante **Bearer Token**. Asegúrate de incluir el token válido en el encabezado de la solicitud.\n\n**Encabezados**:\n\n- **Authorization**: Bearer `{{token_valid}}`\n    \n\n**Cuerpo de la Solicitud** (en formato JSON):\n\n``` json\n{\n  \"email\": \"testemail@example.com\",\n  \"app_uuid\": \"123e4567-e89b-12d3-a456-426614174000\",\n  \"blocked_reason\": \"Suspicious activity\"\n}\n\n ```\n\n**Respuesta Esperada**:\n\n- **Código de Estado 409 Conflict**: Indica que el email ya existe en la lista negra.\n    \n\n**Ejemplo de Respuesta de Error**:\n\n``` html\nThe email is already blacklisted\n\n ```"
 			},
 			"response": []
 		},
@@ -300,7 +223,95 @@
 					"path": [
 						"blacklists"
 					]
-				}
+				},
+				"description": "Este es eun escenario del endpoint blacklist que permite crear una nueva entrada en la lista negra proporcionando un correo electronico y otros detalles. En este caso, el esceenario intentar agregar un email con un formato inválido a la lista negra global. El objetivo es probar cómo el sistema maneja la validación del formato de los correos electrónicos antes de agregarlos a la lista negra.\n\n**URL**:  \n`http://localhost:3000/blacklists`\n\n**Método**:  \nPOST\n\n**Autenticación**:  \nSe requiere autenticación mediante **Bearer Token**. Asegúrate de incluir el token válido en el encabezado de la solicitud.\n\n**Encabezados**:\n\n- **Authorization**: Bearer `{{token_valid}}`\n    \n\n**Cuerpo de la Solicitud** (en formato JSON):\n\n``` json\n{\n  \"email\": \"example.com\",\n  \"app_uuid\": \"123e4567-e89b-12d3-a456-426614174000\",\n  \"blocked_reason\": \"Suspicious activity\"\n}\n\n ```\n\n**Respuesta Esperada**:\n\n- **Código de Estado 400 Bad Request**: Indica que el email enviado no tiene un formato válido.\n    \n\n**Ejemplo de Respuesta de Error**:\n\n```\nInvalid parameters\n\n ```"
+			},
+			"response": []
+		},
+		{
+			"name": "Get email in blacklist",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token_valid}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/blacklists/{{email_valid}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"blacklists",
+						"{{email_valid}}"
+					]
+				},
+				"description": "#### **Consultar Email en Lista Negra (GET)**\n\n- **Descripción**: Obtiene detalles de un correo electronico en la lista negra.\n    \n- **Endpoint**: `{{base_url}}/blacklists/{{email_valid}}`\n    \n- **Método**: GET\n    \n- **Autenticación**: Requiere **Bearer Token**.\n    \n- **Parámetros**: Ninguno.\n    \n- **Respuesta esperada**:\n    \n    - **200 OK**: Email encontrado en la lista negra.\n        \n    - **401 UNAUTHORIZED**\n        \n\n**Ejemplo de Respuesta Exitosa**:\n\n``` json\n{\n    \"found\": true,\n    \"reason\": \"Suspicious activity\"\n}\n\n ```\n\n**Ejemplo de Respuesta de Error**:\n\n``` json\n{\n    \"message\": \"Token is missing or invalid!\"\n}\n\n ```"
+			},
+			"response": []
+		},
+		{
+			"name": "Get email not found",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token_valid}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/blacklists/{{email_not_found}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"blacklists",
+						"{{email_not_found}}"
+					]
+				},
+				"description": "Este es un escenario del endpoint blacklist email, permite consultar si un email presenta detalles de un correo electronico en la lista negra. En este caso, la solicitud está diseñada para buscar un correo que no existe en la lista negra, lo que debería devolver una respuesta de error indicando que el correo no se ha encontrado.\n\n**URL**:  \n`http://localhost:3000/blacklists/noexist@example.com`\n\n**Método**:  \nGET\n\n**Autenticación**:  \nSe requiere autenticación mediante **Bearer Token**. Asegúrate de incluir el token válido en el encabezado de la solicitud.\n\n**Encabezados**:\n\n- **Authorization**: Bearer `{{token_valid}}`\n    \n\n**Respuesta Esperada**:\n\n- **Respuesta esperada**:\n    \n    - **200 OK**: Email encontrado en la lista negra.\n        \n    - **401 UNAUTHORIZED**\n        \n\n**Ejemplo de Respuesta de Error**:\n\n``` json\n{\n    \"found\": false,\n    \"reason\": \"El correo electrónico no se encuentra en la lista negra.\"\n}\n\n\n ```"
+			},
+			"response": []
+		},
+		{
+			"name": "Get email invalid",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token_valid}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/blacklists/{{email_invalid}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"blacklists",
+						"{{email_invalid}}"
+					]
+				},
+				"description": "Este es un escenario del endpoint blacklist email permite que obtiene los detalles de un correo electronico en la lista negra. Sin embargo, el escenario valido, si el email enviado tiene un formato inválido, lo que provoca que el sistema devuelva un error.\n\n**URL**:  \n`http://localhost:3000/blacklists/example.com`\n\n**Método**:  \nGET\n\n**Autenticación**:  \nSe requiere autenticación mediante **Bearer Token**. Asegúrate de incluir el token válido en el encabezado de la solicitud.\n\n**Encabezados**:\n\n- **Authorization**: Bearer `{{token_valid}}`\n    \n\n**Respuesta Esperada**:\n\n- **Código de Estado 500 INTERNAL SERVER ERROR**  \n    \n\n**Ejemplo de Respuesta de Error**:\n\n``` json\n{'email': ['Not a valid email address.']}\n\n ```"
 			},
 			"response": []
 		}
@@ -333,7 +344,7 @@
 	"variable": [
 		{
 			"key": "base_url",
-			"value": "http://localhost:3000",
+			"value": "http://devops08-blacklist-v1-env.eba-nyur4gyv.us-east-1.elasticbeanstalk.com",
 			"type": "default"
 		},
 		{

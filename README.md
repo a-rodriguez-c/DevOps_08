@@ -2,6 +2,9 @@
 
 El objetivo del microservicio de Blacklist es proporcionar una API robusta y segura para gestionar una lista negra de direcciones de correo electrónico. Este microservicio permite a las aplicaciones clientes agregar, consultar y eliminar direcciones de correo electrónico de la lista negra, asegurando que las direcciones bloqueadas no puedan interactuar con el sistema. Además, el microservicio valida las solicitudes entrantes y proporciona respuestas claras y detalladas en caso de errores, como campos faltantes o usuarios no encontrados.
 
+## Endpoint de pruebas
+https://www.postman.com/material-geoscientist-13340023/devops-08/collection/ex3pdbl/blacklist-service-api?action=share&creator=30444108
+
 ## Estructura
 
 La estructura de archivos del microservicio es la siguiente:
@@ -41,7 +44,7 @@ DEVOPS_08/
 
 ```
 
-## Ejecución con compose
+## Ejecución con docker
 
 Para ejecutar el microservicio, sigue los pasos a continuación. Estos comandos te permitirán construir y ejecutar el contenedor Docker del microservicio en tu máquina local.
 
@@ -51,11 +54,20 @@ Para ejecutar el microservicio, sigue los pasos a continuación. Estos comandos 
 4. Ejecuta el siguiente comando para construir y ejecutar el contenedor Docker del microservicio:
 
 ```bash
-docker-compose up -d
+# Descargar la imagen de PostgreSQL
+docker pull postgres
+# Construir la imagen del contenedor de PostgreSQL
+docker run --name my-postgres-container --network my_network -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=2024 -e 
+# Ejecutar el contenedor de PostgreSQL
+$ POSTGRES_DB=blacklist_db -p 5432:5432 -d postgres
+# Construir la imagen del contenedor del microservicio
+$ docker build -t my-flask-app . --no-cache
+# Ejecutar el contenedor del microservicio
+$ docker run --name my-flask-container --network my_network -p 3000:3000 my-flask-app
 ```
 
 5. Carga el archivo `Blacklist Service API.postman_collection.json` en Postman para probar los endpoints del microservicio.
-
+o acceder a la siguiente URL: https://www.postman.com/material-geoscientist-13340023/devops-08/collection/ex3pdbl/blacklist-service-api?action=share&creator=30444108
 
 ## Otras Características (opcional)
 
