@@ -129,9 +129,11 @@ def ping():
 def rootpath():
     return 'ok', 200
 
-
-
-
+'''
+@_blueprint.route('/blacklists/all-at-once', methods=['GET'])
+def allAtOnce():
+    return 'ok', 200
+'''
 
 @_blueprint.route('/blacklists/base', methods=['GET'])
 def allAtOnce():
