@@ -1,3 +1,5 @@
+import time
+
 from flask import Blueprint, request, jsonify
 from flasgger import swag_from
 from src.commands.reset_database import ResetDatabase
@@ -125,6 +127,15 @@ def ping():
 
 @_blueprint.route('/', methods=['GET'])
 def rootpath():
+    return 'ok', 200
+
+
+
+
+
+@_blueprint.route('/blacklists/base', methods=['GET'])
+def allAtOnce():
+    time.sleep(5)
     return 'ok', 200
 
 
