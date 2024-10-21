@@ -123,6 +123,11 @@ def ping():
     return 'pong', 200
 
 
+@_blueprint.route('/', methods=['GET'])
+def rootpath():
+    return 'ok', 200
+
+
 @_blueprint.route('/blacklists/reset', methods=['POST'])
 @token_required
 @swag_from({
