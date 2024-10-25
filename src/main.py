@@ -2,13 +2,16 @@ from flask import Flask, jsonify
 from src.database import init_db
 from src.blueprints.blacklist import _blueprint
 from src.errors.errors import ApiError
-from src.utils.environment_config import load_environment_variables
 from flasgger import Swagger
 
-load_environment_variables()
+from dotenv import load_dotenv
+
+load_dotenv()
+
 
 def setup_app():
     app = Flask(__name__)
+    app.register_blueprint(_blueprint)
     swagger_template = {
         "swagger": "2.0",
         "info": {
@@ -29,7 +32,7 @@ def setup_app():
     }
 
     Swagger(app,template=swagger_template)  # Inicializar Flasgger
-    app.register_blueprint(_blueprint)
+
 
     @app.errorhandler(ApiError)
     def handle_error(err):
@@ -41,7 +44,8 @@ def setup_app():
     return app
 
 app = setup_app()
-init_db()
 
 if __name__ == "__main__":
+
+    init_db()
     app.run(host="0.0.0.0")

@@ -194,3 +194,4 @@ docker-compose-local-rf006-007.yml
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
+.venv-devops/
