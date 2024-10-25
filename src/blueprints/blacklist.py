@@ -129,6 +129,37 @@ def ping():
 def rootpath():
     return 'ok', 200
 
+
+@_blueprint.route('/blacklists/rolling', methods=['GET'])
+def rolling():
+    return 'ok', 200
+
+
+
+@_blueprint.route('/blacklists/rolling-batch', methods=['GET'])
+def rollingBatch():
+    return 'ok', 200
+
+
+
+@_blueprint.route('/blacklists/inmutable', methods=['GET'])
+def inmutable():
+    return 'ok', 200
+
+
+
+@_blueprint.route('/blacklists/all-at-once', methods=['GET'])
+def allAtOnce():
+    return 'ok', 200
+
+
+
+@_blueprint.route('/blacklists/base', methods=['GET'])
+def base():
+    time.sleep(5)
+    return 'ok', 200
+
+
 @_blueprint.route('/blacklists/reset', methods=['POST'])
 @token_required
 @swag_from({
