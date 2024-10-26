@@ -43,6 +43,25 @@ DEVOPS_08/
 └── README.md                 # Documentación del microservicio
 
 ```
+## Ejecutar tests
+
+Para ejecutar las pruebas unitarias del microservicio, sigue los pasos a continuación. Estos comandos te permitirán ejecutar las pruebas unitarias y verificar que el microservicio funciona correctamente.
+
+1. Asegurate de tener instalado Python y el entorno activo en tu máquina.
+2. Clona el repositorio del proyecto en tu máquina local.
+3. Navega al directorio del reposotirio desde la terminal
+4. Ejecuta el siguiente comando para instalar las dependencias del proyecto:
+
+```bash
+$ pip -m venv venv
+$ source venv/bin/activate
+$ pip install -r requirements.txt
+```
+5. Ejecuta el siguiente comando para ejecutar las pruebas unitarias del microservicio:
+
+```bash
+$ pytest --cov=src --cov-report=term-missing --cov-fail-under=70
+```
 
 ## Ejecución con docker
 
