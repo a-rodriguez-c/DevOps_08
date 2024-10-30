@@ -16,7 +16,7 @@ env:
 phases:
   install:
     runtime-versions:
-      python: 3.8
+      python: latest
     commands:
       - echo "Instalando pipenv y dependencias del proyecto..."
       - pip install --upgrade pip
