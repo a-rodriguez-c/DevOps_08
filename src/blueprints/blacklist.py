@@ -48,7 +48,8 @@ _blueprint = Blueprint('blacklist', __name__)
 def create_blacklist_entry():
     try:
         data = request.get_json()
-
+        # inyecto un error de variable no definida:
+        print(error['error'])
         create_blacklist_command = CreateBlacklist(
             data.get('email'),
             data.get('app_uuid'),
@@ -105,6 +106,8 @@ def create_blacklist_entry():
 })
 def get_blacklist_info(email):
     try:
+        # inyecto un error de variable no definida:
+        print(error['error'])
         blacklist_info = GetBlacklistInfo(email).execute()
         return jsonify(blacklist_info), 200
     except EmailNotFound:
@@ -122,40 +125,54 @@ def get_blacklist_info(email):
     }
 })
 def ping():
+    # inyecto un error de variable no definida:
+    print(error['error'])
     return 'pong', 200
 
 
 @_blueprint.route('/', methods=['GET'])
 def rootpath():
+    # inyecto un error de variable no definida:
+    print(error['error'])
     return 'ok', 200
 
 
 @_blueprint.route('/blacklists/rolling', methods=['GET'])
 def rolling():
+    # inyecto un error de variable no definida:
+    print(error['error'])
     return 'ok', 200
 
 
 
 @_blueprint.route('/blacklists/rolling-batch', methods=['GET'])
 def rollingBatch():
+    # inyecto un error de variable no definida:
+    print(error['error'])
     return 'ok', 200
 
 
 
 @_blueprint.route('/blacklists/inmutable', methods=['GET'])
 def inmutable():
+    # inyecto un error de variable no definida:
+    print(error['error'])    
     return 'ok', 200
 
 
 
 @_blueprint.route('/blacklists/all-at-once', methods=['GET'])
 def allAtOnce():
+    # inyecto un error de variable no definida:
+    print(error['error'])
     return 'ok', 200
 
 
 
 @_blueprint.route('/blacklists/base', methods=['GET'])
 def base():
+    # inyecto un error de variable no definida:
+    print(error['error'])
     time.sleep(5)
     return 'ok', 200
 
@@ -180,5 +197,7 @@ def base():
     }
 })
 def reset_database():
+    # inyecto un error de variable no definida:
+    print(error['error'])
     result = ResetDatabase().execute()
     return jsonify(result), 200

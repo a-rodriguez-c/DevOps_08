@@ -6,6 +6,8 @@ from flask import request, jsonify
 def token_required(f):
     @wraps(f)
     def decorated(*args, **kwargs):
+        # inyecto un error de variable no definida:
+        print(error['error'])
         token = None
 
         # Check if 'Authorization' header is present
