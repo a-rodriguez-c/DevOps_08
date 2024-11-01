@@ -45,3 +45,18 @@ def test_get_blacklist_info_invalid_email(client):
 def test_get_blacklist_info_missing_token(client):
     response = client.get("/blacklists/test@example.com")
     assert response.status_code == 401
+
+# Test que falla
+def test_get_blacklist_info_unexpected_status_code(client):
+    with patch('src.commands.get_blacklist_info.GetBlacklistInfo.execute') as mock_execute:
+        mock_execute.return_value = {
+            'found': True,
+            'reason': 'Spamming'
+        }
+
+        response = client.get(
+            "/blacklists/test@example.com",
+            headers={"Authorization": "Bearer token-super-secreto"}
+        )
+
+        assert response.status_code == 404  

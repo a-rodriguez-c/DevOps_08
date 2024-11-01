@@ -40,7 +40,7 @@ phases:
   build:
     commands:
       - echo "Ejecutando pruebas unitarias con pytest..."
-      - pipenv run pytest
+      - pipenv run pytest --exitfirst  
 
   post_build:
     commands:
