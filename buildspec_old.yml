@@ -24,8 +24,6 @@ phases:
 
   pre_build:
     commands:
-      - echo "Iniciando sesión en ECR..."
-      - aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 093066193290.dkr.ecr.us-east-2.amazonaws.com
       - echo "Configurando variables de entorno..."
       - export FLASK_APP=$FLASK_APP
       - export FLASK_ENV=$FLASK_ENV
@@ -41,19 +39,15 @@ phases:
 
   build:
     commands:
-      - echo "Iniciando build de la imagen de Docker"
       - echo "Ejecutando pruebas unitarias con pytest..."
       - pipenv run pytest
-      - docker build -t devops/blacklists .
-      - docker tag devops/blacklists:latest 093066193290.dkr.ecr.us-east-2.amazonaws.com/devops/blacklists:latest
 
   post_build:
     commands:
-      - echo "Se completó el proceso de build"
-      - docker push 093066193290.dkr.ecr.us-east-2.amazonaws.com/devops/blacklists:latest
       - echo "Fase de post-construcción completada."
 
 artifacts:
   files:
     - '**/*'
   discard-paths: yes
+
