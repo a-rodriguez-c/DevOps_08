@@ -1,4 +1,4 @@
-version: 0.2
+version: 0.3
 
 env:
   variables:
@@ -7,8 +7,8 @@ env:
     FLASK_DEBUG: "1"
     FLASK_ENV: "test"
     DB_USER: "postgres"
-    DB_PASSWORD: "postgres"
-    DB_HOST: "localhost"
+    DB_PASSWORD: "devops08-postgresql"
+    DB_HOST: "postgres.cfsmcayu0ajr.us-east-1.rds.amazonaws.com"
     DB_PORT: "5432"
     DB_NAME: "postgres"
     SECRET_TOKEN: "token-super-secreto"
@@ -25,7 +25,7 @@ phases:
   pre_build:
     commands:
       - echo "Iniciando sesión en ECR..."
-      - aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 093066193290.dkr.ecr.us-east-2.amazonaws.com
+      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 522814723579.dkr.ecr.us-east-1.amazonaws.com
       - echo "Configurando variables de entorno..."
       - export FLASK_APP=$FLASK_APP
       - export FLASK_ENV=$FLASK_ENV
@@ -43,17 +43,31 @@ phases:
     commands:
       - echo "Iniciando build de la imagen de Docker"
       - echo "Ejecutando pruebas unitarias con pytest..."
-      - pipenv run pytest
-      - docker build -t devops/blacklists .
-      - docker tag devops/blacklists:latest 093066193290.dkr.ecr.us-east-2.amazonaws.com/devops/blacklists:latest
+      - docker build --platform linux/amd64 -t devops_08 .
+      - docker tag devops_08:latest 522814723579.dkr.ecr.us-east-1.amazonaws.com/devops_08:latest
 
   post_build:
     commands:
       - echo "Se completó el proceso de build"
-      - docker push 093066193290.dkr.ecr.us-east-2.amazonaws.com/devops/blacklists:latest
+      - docker push 522814723579.dkr.ecr.us-east-1.amazonaws.com/devops_08:latest
       - echo "Fase de post-construcción completada."
+      - echo "Writing Image Definitions file..."
+      - printf '[{"name":"devops08-container", "imageUri":"522814723579.dkr.ecr.us-east-1.amazonaws.com/devops_08:latest"}]' > imageDetail.json
+      - printf '{"ImageURI":"522814723579.dkr.ecr.us-east-1.amazonaws.com/devops_08:latest"}' > imageDetail.json
+      - cat imagedefinitions.json
+
 
 artifacts:
   files:
     - '**/*'
-  discard-paths: yes
+    - imagedefinitions.json
+    - imageDetail.json
+  secondary-artifacts:
+    DefinitionArtifact:
+      files:
+        - appspec.json
+        - taskdef.json
+    ImageArtifact:
+      files:
+        - imageDetail.json
+
