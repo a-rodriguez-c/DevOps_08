@@ -90,7 +90,7 @@ $ docker run --name my-flask-container --network my_network -p 3000:3000 my-flas
 * o acceder a la siguiente URL Microservicio Actualizacion Semana 5-6: https://blue-station-32150.postman.co/workspace/038a15bb-1801-4e03-a3ef-d92eb8e09b7e/collection/30632007-9b3d1715-a529-41fd-9c5a-cdce87c6e4f7
 
 ## Integración con AWS Fargate y CI/CD (Entrega 3)
-En la **Entrega 3**, se implementó la integración del microservicio con AWS utilizando **Fargate** para el despliegue sin servidores, **ECR** para almacenar la imagen Docker, un **ALB** para balanceo de tráfico, y un pipeline CI/CD automatizado con **CodeCommit**, **CodeBuild**, **CodePipeline**, y **CodeDeploy** (Blue/Green Deployment), logrando despliegues automáticos y escalables. Además, se actualizó la colección de Postman para reflejar los nuevos endpoints y configuraciones, garantizando pruebas actualizadas y funcionales.  
+En la **Entrega 3**, se implementó la integración del microservicio con AWS utilizando **Fargate** para el despliegue sin servidores, **ECR** para almacenar la imagen Docker, un **ALB** para balanceo de tráfico, y un pipeline CI/CD automatizado con **GitHub**, **CodeBuild**, **CodePipeline**, y **CodeDeploy** (Blue/Green Deployment), logrando despliegues automáticos y escalables. Además, se actualizó la colección de Postman para reflejar los nuevos endpoints y configuraciones, garantizando pruebas actualizadas y funcionales.  
 
 ## Enlaces  al Repositorio del Proyecto
 - [**README**](https://github.com/lesmesl/DevOps_08/blob/main/README.md)
