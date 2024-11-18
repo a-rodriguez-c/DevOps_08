@@ -1,4 +1,4 @@
-version: 0.3
+version: 0.2
 
 env:
   variables:
@@ -16,7 +16,7 @@ env:
 phases:
   install:
     runtime-versions:
-      python: 3.12
+      python: 3.11.4
     commands:
       - echo "Instalando pipenv y dependencias del proyecto..."
       - pip install --upgrade pip
