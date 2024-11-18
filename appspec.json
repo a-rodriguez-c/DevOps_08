@@ -5,10 +5,10 @@
             "TargetService": {
                 "Type": "AWS::ECS::Service",
                 "Properties": {
-                    "TaskDefinition": "<TASK_DEFINITON>",
+                    "TaskDefinition": "<TASK_DEFINITION>",
                     "LoadBalancerInfo": {
-                        "ContainerName": "Container-blacklist",
-                        "ContainerPort": 5000
+                        "ContainerName": "devops08-container",
+                        "ContainerPort": 3000
                     }
                 }
             }
