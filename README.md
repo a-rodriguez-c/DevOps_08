@@ -86,7 +86,18 @@ $ docker run --name my-flask-container --network my_network -p 3000:3000 my-flas
 ```
 
 5. Carga el archivo `Blacklist Service API.postman_collection.json` en Postman para probar los endpoints del microservicio.
-o acceder a la siguiente URL: https://www.postman.com/material-geoscientist-13340023/devops-08/collection/ex3pdbl/blacklist-service-api?action=share&creator=30444108
+* o acceder a la siguiente URL Microservicio Inicial Semana 1-4: https://www.postman.com/material-geoscientist-13340023/devops-08/collection/ex3pdbl/blacklist-service-api?action=share&creator=30444108
+* o acceder a la siguiente URL Microservicio Actualizacion Semana 5-6: https://blue-station-32150.postman.co/workspace/038a15bb-1801-4e03-a3ef-d92eb8e09b7e/collection/30632007-9b3d1715-a529-41fd-9c5a-cdce87c6e4f7
+
+6.## Integración con AWS Fargate y CI/CD (Entrega 3)
+En la **Entrega 3**, se implementó la integración del microservicio con AWS utilizando **Fargate** para el despliegue sin servidores, **ECR** para almacenar la imagen Docker, un **ALB** para balanceo de tráfico, y un pipeline CI/CD automatizado con **CodeCommit**, **CodeBuild**, **CodePipeline**, y **CodeDeploy** (Blue/Green Deployment), logrando despliegues automáticos y escalables. Además, se actualizó la colección de Postman para reflejar los nuevos endpoints y configuraciones, garantizando pruebas actualizadas y funcionales.  
+
+7. ## Enlaces  al Repositorio del Proyecto
+- [**README**](https://github.com/lesmesl/DevOps_08/blob/main/README.md)
+- [**WIKI**](https://github.com/lesmesl/DevOps_08/wiki)
+- [**Diseño de Arquitectura**](https://github.com/lesmesl/DevOps_08/wiki/Entrega-1:-Documento-Arquitectura)
+- [**Código General de Aplicación**](https://github.com/lesmesl/DevOps_08/tree/main/src)
+- [**Sustentaciones en Video**](https://github.com/lesmesl/DevOps_08/wiki/Sustentaciones-en-Video-%E2%80%90-Entregas)
 
 ## Otras Características (opcional)
 
