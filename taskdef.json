@@ -3,7 +3,7 @@
     "containerDefinitions": [
         {
             "name": "devops08-container",
-            "image": "522814723579.dkr.ecr.us-east-1.amazonaws.com/devops_08",
+            "image": "522814723579.dkr.ecr.us-east-1.amazonaws.com/devops_08:latest",
             "cpu": 0,
             "portMappings": [
                 {
