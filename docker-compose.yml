@@ -1,0 +1,46 @@
+version: '3.9'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/src
+    environment:
+      - FLASK_ENV=development
+      - FLASK_APP=src/main.py
+      - FLASK_DEBUG=1 
+      - FLASK_ENV=test 
+      - DB_USER=postgres 
+      - DB_PASSWORD=postgres 
+      - DB_HOST=blacklist_db 
+      - DB_PORT=5432 
+      - DB_NAME=blacklist_db 
+      - SECRET_TOKEN=token-super-secreto 
+      - NEW_RELIC_CONFIG_FILE=/src/newrelic.ini 
+      - PYTHONUNBUFFERED=1
+    depends_on:
+      - blacklist_db
+
+  blacklist_db:
+    image: postgres
+    environment:
+      POSTGRES_DB: blacklist_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 2s
+      timeout: 5s
+      retries: 5
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata_user:/var/lib/postgresql/data
+
+volumes:
+  pgdata_user:
+

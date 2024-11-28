@@ -3,3 +3,8 @@ node_modules
 *.log
 *.tmp
 *.db
+locust_test_local.py
+.env*
+venv
+artefact.zip
+Blacklist Service API.postman_collection.json

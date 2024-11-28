@@ -12,3 +12,4 @@ sqlalchemy
 requests
 importlib-metadata
 flasgger
+newrelic

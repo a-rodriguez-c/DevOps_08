@@ -198,3 +198,5 @@ docker-compose-local-rf006-007.yml
 
 # verscode
 test.test1
+locust_test_local.py
+artefact.zip
