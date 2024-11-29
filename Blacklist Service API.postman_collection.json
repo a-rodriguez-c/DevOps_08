@@ -1,10 +1,10 @@
 {
 	"info": {
-		"_postman_id": "d255ac50-bc49-4112-869a-0ba06306e624",
+		"_postman_id": "b329fbf4-8907-4948-8fc5-60ee75beaccc",
 		"name": "Blacklist Service API",
 		"description": "### **Blacklist Service API - Documentación**\n\n**Descripción General**:  \n**Blacklist Service API** es un microservicio que permite gestionar una lista negra global de correos electrónicos. Este servicio facilita a los sistemas internos la consulta sobre si un email está en la lista negra y la capacidad de agregar nuevos emails. Además, maneja adecuadamente los errores relacionados con la autenticación y el formato de los correos electrónicos. La API está diseñada bajo un modelo RESTful, exponiendo múltiples endpoints para su integración con otros sistemas.\n\n### **Arquitectura**:\n\nEste microservicio sigue los principios de **microservicios** modernos, proporcionando un API centralizado y autónomo. La **autenticación** se realiza mediante Bearer Tokens, lo que asegura que solo los sistemas autorizados pueden acceder y modificar la lista negra. La información se persiste en una base de datos relacional, recomendándose el uso de **AWS RDS** para una gestión escalable y segura.\n\n### **Autenticación**:\n\nExceptuando el endpoint de Health Check, todas las solicitudes requieren un **Bearer Token**. Para las pruebas, se utilizan los siguientes tokens:\n\n- Token válido: `token-super-secreto`\n    \n- Token inválido: `error`\n    \n\nEl token debe ser incluido en el encabezado `Authorization` de las solicitudes, por ejemplo:\n\n```\nAuthorization: Bearer token-super-secreto\n\n ```\n\n**Endpoints Documentados**:",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "5831053"
+		"_exporter_id": "30444108"
 	},
 	"item": [
 		{
