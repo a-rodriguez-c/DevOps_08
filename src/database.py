@@ -21,7 +21,14 @@ DATABASE_URL = f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NA
 
 logger.info(f"Connecting to database: {DATABASE_URL}")
 
-engine = create_engine(DATABASE_URL)
+engine = create_engine(
+    DATABASE_URL,
+    pool_size=30,       # Valor por defecto o ajustado
+    max_overflow=-1,    # Conexiones adicionales ilimitadas
+    pool_timeout=30,    # Tiempo máximo de espera para obtener una conexión
+    connect_args={"options": "-c statement_timeout=30000"}  # 30 segundos será cancelada automáticamente
+)
+
 session_factory = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 db_session = scoped_session(session_factory)
 
