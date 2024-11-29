@@ -57,6 +57,7 @@ phases:
       - printf '{"ImageURI":"619071342021.dkr.ecr.us-east-1.amazonaws.com/devops_08:latest"}' > imageDetail.json
       - cat imagedefinitions.json
 
+
 artifacts:
   files:
     - '**/*'
