@@ -1,9 +1,12 @@
 from src.commands.base_command import BaseCommand
 from src.models.model import Blacklist
 from src.errors.errors import InvalidParams, EmailAlreadyBlacklisted
-from src.database import db_session
+from src.database import session_scope
 from src.models.schemas import CreateBlacklistInputSchema
 from flask import request
+import logging
+
+logger = logging.getLogger(__name__)
 
 class CreateBlacklist(BaseCommand):
     def __init__(self, email, app_uuid, blocked_reason, ip_address):
@@ -13,10 +16,8 @@ class CreateBlacklist(BaseCommand):
         self.ip_address = request.remote_addr
 
     def execute(self):
-        # Create an instance of the input schema
         input_schema = CreateBlacklistInputSchema()
 
-        # Validate input data
         input_data = {
             "email": self.email,
             "app_uuid": self.app_uuid,
@@ -26,27 +27,26 @@ class CreateBlacklist(BaseCommand):
 
         errors = input_schema.validate(input_data)
         if errors:
+            logger.error(f"Invalid parameters: {errors}")
             raise InvalidParams(errors)
 
-        # Check if the email is already blacklisted
-        existing_blacklist_entry = db_session.query(Blacklist).filter(
-            Blacklist.email == self.email
-        ).first()
-        if existing_blacklist_entry:
-            raise EmailAlreadyBlacklisted()
+        with session_scope() as session:
+            existing_blacklist_entry = session.query(Blacklist).filter(
+                Blacklist.email == self.email
+            ).first()
+            if existing_blacklist_entry:
+                logger.error(f"Email already blacklisted: {self.email}")
+                raise EmailAlreadyBlacklisted()
 
-        # Create a new blacklist entry
-        new_blacklist_entry = Blacklist(
-            email=self.email,
-            app_uuid=self.app_uuid,
-            blocked_reason=self.blocked_reason,
-            ip_address=self.ip_address
-        )
-        db_session.add(new_blacklist_entry)
-        db_session.commit()
+            new_blacklist_entry = Blacklist(
+                email=self.email,
+                app_uuid=self.app_uuid,
+                blocked_reason=self.blocked_reason,
+                ip_address=self.ip_address
+            )
+            session.add(new_blacklist_entry)
 
-        # Return a success message after committing the new entry
+        logger.info(f"Blacklist entry successfully registered for email: {self.email}")
         return {
             "message": "Blacklist entry successfully registered."
         }
-

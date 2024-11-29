@@ -1,10 +1,15 @@
 import os
+import logging
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
 from dotenv import load_dotenv
+from contextlib import contextmanager
 
 load_dotenv()
 
+# Set up logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 DB_USER = os.getenv("DB_USER")
 DB_PASSWORD = os.getenv("DB_PASSWORD")
@@ -14,14 +19,29 @@ DB_NAME = os.getenv("DB_NAME")
 
 DATABASE_URL = f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
 
-print("DATABASE_URL", DATABASE_URL)
+logger.info(f"Connecting to database: {DATABASE_URL}")
 
 engine = create_engine(DATABASE_URL)
 session_factory = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 db_session = scoped_session(session_factory)
 
+@contextmanager
+def session_scope():
+    """Provide a transactional scope around a series of operations."""
+    session = session_factory()
+    try:
+        yield session
+        session.commit()
+    except Exception as e:
+        session.rollback()
+        logger.error(f"Database error: {str(e)}", exc_info=True)
+        raise
+    finally:
+        logger.info("Closing database session")
+        session.close()
+
 def init_db():
-    from src.models.model import Blacklist, Base # Adjusted import statement
-    print("Initializing database")
+    from src.models.model import Blacklist, Base
+    logger.info("Initializing database")
     Base.metadata.create_all(bind=engine)
-    print("Database initialized")
+    logger.info("Database initialized")

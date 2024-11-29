@@ -13,3 +13,5 @@ requests
 importlib-metadata
 flasgger
 newrelic
+# faker
+# locust
