@@ -1,5 +1,5 @@
 {
-    "taskDefinitionArn": "arn:aws:ecs:us-east-1:522814723579:task-definition/devops08-task-python:1",
+    "taskDefinitionArn": "arn:aws:ecs:us-east-1:619071342021:task-definition/devops08-task-python:1",
     "containerDefinitions": [
         {
             "name": "devops08-container",
@@ -36,7 +36,7 @@
         }
     ],
     "family": "devops08-task-python",
-    "executionRoleArn": "arn:aws:iam::522814723579:role/ecsTaskExecutionRole",
+    "executionRoleArn": "arn:aws:iam::619071342021:role/ecsTaskExecutionRole",
     "networkMode": "awsvpc",
     "revision": 1,
     "volumes": [],
@@ -85,5 +85,5 @@
         "operatingSystemFamily": "LINUX"
     },
     "registeredAt": "2024-11-17T19:16:54.284Z",
-    "registeredBy": "arn:aws:iam::522814723579:root"
+    "registeredBy": "arn:aws:iam::619071342021:root"
 }
