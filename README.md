@@ -92,6 +92,14 @@ $ docker run --name my-flask-container --network my_network -p 3000:3000 my-flas
 ## Integración con AWS Fargate y CI/CD (Entrega 3)
 En la **Entrega 3**, se implementó la integración del microservicio con AWS utilizando **Fargate** para el despliegue sin servidores, **ECR** para almacenar la imagen Docker, un **ALB** para balanceo de tráfico, y un pipeline CI/CD automatizado con **GitHub**, **CodeBuild**, **CodePipeline**, y **CodeDeploy** (Blue/Green Deployment), logrando despliegues automáticos y escalables. Además, se actualizó la colección de Postman para reflejar los nuevos endpoints y configuraciones, garantizando pruebas actualizadas y funcionales.  
 
+## Monitoreo con New Relic
+
+En la **Entrega 4**, se implementó **New Relic** como herramienta de monitoreo continuo para el microservicio de Blacklist, con el objetivo de mejorar la visibilidad del rendimiento del sistema en tiempo real. La integración incluyó:
+- **Instrumentación del código:** Configuración del agente de New Relic en el entorno Python y actualización del `Dockerfile` para garantizar la recopilación de métricas clave.
+- **Pruebas de desempeño:** Validación local y en producción con herramientas como Locust para simular cargas de usuarios y analizar el impacto en los tiempos de respuesta y tasas de error.
+- **Configuración de alertas:** Definición de umbrales  para tiempos de respuesta, tasas de error y caídas en el índice Apdex.
+Esta integración asegura un monitoreo efectivo del microservicio, garantizando la alta disponibilidad y una respuesta confiable incluso en escenarios de alta demanda o fallos inesperados.
+
 ## Enlaces  al Repositorio del Proyecto
 - [**README**](https://github.com/lesmesl/DevOps_08/blob/main/README.md)
 - [**WIKI**](https://github.com/lesmesl/DevOps_08/wiki)
